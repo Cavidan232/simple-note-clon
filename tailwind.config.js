@@ -9,15 +9,11 @@ export default {
       colors:{
         "custom-dark":"#1f2123",
         "custom-blue":"#3361cc",
-        "custom-light":"#d5dff5"
+        "custom-light":"#d5dff5",
+        "custom-dark-2":"#323436"
       },
       fontFamily: {
         'sf-pro': ['"SF Pro Display"', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-      },
-      container: {
-        center: true,
-        padding: '1rem',
-        maxWidth:'1000px',
       },
     },
   },

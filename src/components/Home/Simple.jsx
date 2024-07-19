@@ -17,24 +17,24 @@ function Simple() {
 
   return (
     <div className="bg-custom-dark text-white px-4 py-8 md:px-8 md:py-12">
-      <div className="container simple w-full flex flex-col gap-[30px] items-center justify-center">
-        <h1 className="text-4xl md:w-[50%] md:text-center w-full font-bold mb-8 text-center">
+      <div className="container border-b border-b-gray-500  simple w-full flex flex-col gap-[30px] items-center justify-center">
+        <h1 className="text-4xl md:w-[80%] md:text-center w-full font-bold mb-8 text-center">
           Comprehensive underneath, simple on the surface
         </h1>
-        <div className="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-[30px]">
+        <div className="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-[20px]">
           {cards.map((card, index) => (
-            <div key={index} className='flex p-1 flex-col shadow-lg gap-[10px]'>
+            <div key={index} className='flex p-1 flex-col  gap-[10px]'>
               <div className='flex items-center justify-start gap-[10px]'>
-                <img src={card.image} alt={card.title} />
-                <span className='font-bold text-[20px]'>{card.title}</span>
+                <img src={card.image}className='w-[30px]'  alt={card.title} />
+                <span className='font-bold text-[16px]'>{card.title}</span>
               </div>
-              <p className='text-gray-400'>{card.description}</p>
+              <p className='text-gray-400 w-[80%]'>{card.description}</p>
             </div>
           ))}
         </div>
 
       </div>
-      <hr className='bg-white' />
+     
     </div>
   );
 }
