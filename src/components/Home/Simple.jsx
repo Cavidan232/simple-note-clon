@@ -23,7 +23,7 @@ function Simple() {
         </h1>
         <div className="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-[30px]">
           {cards.map((card, index) => (
-            <div key={index} className='flex flex-col shadow-lg gap-[10px]'>
+            <div key={index} className='flex p-1 flex-col shadow-lg gap-[10px]'>
               <div className='flex items-center justify-start gap-[10px]'>
                 <img src={card.image} alt={card.title} />
                 <span className='font-bold text-[20px]'>{card.title}</span>
@@ -32,8 +32,9 @@ function Simple() {
             </div>
           ))}
         </div>
-<hr className='bg-white' />
+
       </div>
+      <hr className='bg-white' />
     </div>
   );
 }
