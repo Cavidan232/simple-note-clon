@@ -15,7 +15,7 @@ function Banner() {
         <button className="bg-blue-600 text-white px-6 py-2 rounded-md text-lg md:text-xl hover:bg-blue-700">
           Sign up now
         </button>
-        <img src={bg} alt="Devices" className="mt-6 mx-auto" />
+        <img src={bg} alt="Devices" className="mt-6 min-w-[100%] mx-auto" />
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ function Simple() {
                 <img src={card.image}className='w-[30px]'  alt={card.title} />
                 <span className='font-bold text-[16px]'>{card.title}</span>
               </div>
-              <p className='text-gray-400 w-[80%]'>{card.description}</p>
+              <p className='text-gray-400 w-full md:w-[80%]'>{card.description}</p>
             </div>
           ))}
         </div>

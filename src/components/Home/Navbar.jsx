@@ -6,11 +6,15 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [user,setUser]=useState(localStorage.getItem('currentUser2')? JSON.parse(localStorage.getItem('currentUser2')):null)
   const handleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
-
+  const handleLogout = () => {
+    localStorage.removeItem('currentUser3');
+    setUser(null);
+    window.location.href = '/login';
+  };
   return (
     <header className="bg-transparent py-4">
       <div className="container mx-auto flex justify-between items-center px-8">
@@ -24,10 +28,24 @@ const Navbar = () => {
           <Link className="text-custom-light hover:text-white" to="/blog">Blog</Link>
           <Link className="text-custom-light hover:text-white" to="/blog">Support From</Link>
           <div className="border-l border-gray-300 h-6"></div>
-          <Link className="text-custom-light hover:text-white" to="/login">Log In</Link>
-          <Link className="text-custom-light hover:text-white border border-gray-500 rounded px-2 py-1 mt-[-4px]" to="/signup">
-         Sign Up
+     
+          {user ? (
+            <>
+                 <Link className="text-custom-light hover:text-white" to="/login">{user.name}</Link>
+          <Link className="text-custom-light hover:text-white border border-gray-500 rounded px-2 py-1 mt-[-4px]" onClick={handleLogout}  to="/register">
+         LogOut
           </Link>
+            </>
+          ): (
+            <>
+            <Link className="text-custom-light hover:text-white" to="/login">{user.name}</Link>
+            <Link className="text-custom-light hover:text-white border border-gray-500 rounded px-2 py-1 mt-[-4px]" onClick={handleLogout}> LogOut  </Link>
+            </>
+
+            
+          )}
+
+        
         </div>
         <div className="md:hidden">
           <button onClick={handleMenu}>
@@ -45,7 +63,7 @@ const Navbar = () => {
         <Link className="text-custom-light hover:text-white" to="/blog" onClick={handleMenu}>Blog</Link>
         <div className="border-t border-gray-300 w-full"></div>
         <Link className="text-custom-light hover:text-white" to="/login" onClick={handleMenu}>Log In</Link>
-        <Link className="text-custom-light hover:text-white" to="/signup" onClick={handleMenu}>
+        <Link className="text-custom-light hover:text-white" to="/register" onClick={handleMenu}>
           <div className="border border-gray-500 rounded px-2 py-1">Sign Up</div>
         </Link>
       </div>

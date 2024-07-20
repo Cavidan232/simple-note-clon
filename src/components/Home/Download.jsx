@@ -23,7 +23,7 @@ function Download() {
         <p className="text-2xl md:w-[50%] md:text-center w-full font-normal mb-8 text-center">
         Download Simplenote for any device and stay in sync – all the time, everywhere.
         </p>
-        <div className="cards grid grid-cols-1 md:grid-cols-2 pb-[20px]  w-[60%] gap-[20px]">
+        <div className="cards grid grid-cols-1 md:grid-cols-2 pb-[20px] w-full  md:w-[60%] gap-[20px]">
           {cards.map((card, index) => (
             <div key={index} className='flex items-center  bg-custom-dark-2 rounded-[6px] p-2 shadow-lg border  border-gray-50 gap-[10px]'>
               <div className='flex items-center justify-start gap-[10px]'>
