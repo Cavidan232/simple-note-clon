@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,13 +12,15 @@ function Login() {
     email: '',
     password: ''
   });
+  
 
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     userLogin();
   };
 
-  const api = "https://irradiated-silicon-antler.glitch.me/user";
+ const api = "https://irradiated-silicon-antler.glitch.me/user"
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +39,7 @@ function Login() {
       if (user) {
         localStorage.setItem('currentUser2', JSON.stringify(user));
         toast.success('Giriş uğurlu oldu!');
-        window.location.href = "/";
+        navigate("/");
       } else {
         const emailExists = users.some(u => u.email === formData.email);
         const nameExists = users.some(u => u.name === formData.name);

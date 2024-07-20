@@ -1,63 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
- const [formData,setFormData]=useState({
-  name:'',
-  password:'',
-  email:''
- })
- const handleInputChange=(e)=>{
-  const {name,value}=e.target;
-  setFormData({
-    ...formData,
-    [name]:value
-  })
- }
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
 
- const api = "https://irradiated-silicon-antler.glitch.me/user";
- const handleRegister=(e)=>{
-  e.preventDefault();
-  postUser()
- }
- const postUser= async ()=>{
-  const exUserresponse = await axios.get(api);
-  const exEmail= exUserresponse.data.find(u=>u.email===formData.email);
-  const exName= exUserresponse.data.find(e=>e.name===formData.name);
-if(exName){
-  toast.error('Bu ad ilə qeydiyyatdan keçmiş istifadəçi artıq var.');
-  return;
-}
-if(exEmail){
-  toast.error('Bu email ilə qeydiyyatdan keçmiş istifadəçi artıq var.');
-  return;
-}
-const post = await axios.post(api,{
-      name:formData.name, 
-      email: formData.email,
-      password: formData.password,
-      fav: [],
-      delete: [],
-      notes: []
-}
-    )
-    if (post.status === 201) {
-      toast.success('Qeydiyyat uğurlu oldu!');
-      window.location = "/login";
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
+  const navigate = useNavigate(); // useNavigate hook'u
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+const api = "https://irradiated-silicon-antler.glitch.me/user"
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    postUser();
+  };
+
+  const postUser = async () => {
+    try {
+      const exUserresponse = await axios.get(api);
+      const exEmail = exUserresponse.data.find(u => u.email === formData.email);
+      const exName = exUserresponse.data.find(e => e.name === formData.name);
+
+      if (exName) {
+        toast.error('Bu ad ilə qeydiyyatdan keçmiş istifadəçi artıq var.');
+        return;
+      }
+      if (exEmail) {
+        toast.error('Bu email ilə qeydiyyatdan keçmiş istifadəçi artıq var.');
+        return;
+      }
+
+      const post = await axios.post(api, {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        fav: [],
+        delete: [],
+        notes: []
       });
-    } else {
-      toast.error('Qeydiyyat uğursuz oldu. Yenidən cəhd edin.');
+
+      if (post.status === 201) {
+        toast.success('Qeydiyyat uğurlu oldu!');
+        navigate("/login"); // useNavigate ile yönlendirme
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+        });
+      } else {
+        toast.error('Qeydiyyat uğursuz oldu. Yenidən cəhd edin.');
+      }
+    } catch (error) {
+      toast.error('Bir xəta baş verdi. Yenidən cəhd edin.');
     }
- 
-}
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-custom-dark text-white">

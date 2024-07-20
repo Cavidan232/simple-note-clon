@@ -5,20 +5,21 @@ import { GrUpdate } from 'react-icons/gr';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
+import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
 function Notes() {
-  const api = 'https://irradiated-silicon-antler.glitch.me/user';
+  const api = "https://irradiated-silicon-antler.glitch.me/user"
   const [user, setUser] = useState(localStorage.getItem('currentUser2') ? JSON.parse(localStorage.getItem('currentUser2')) : null);
   const [notes, setNotes] = useState(user ? user.notes : []);
   const [deleteNotes, setDelete] = useState(user ? user.delete : []);
   const [favNotes, setFav] = useState(user ? user.fav : []);
   const [note, setNote] = useState('');
   const [view, setView] = useState('all');
-
+  const navigate = useNavigate();
   if (!user) {
-    window.location = "/login";
+    navigate('/login'); 
   }
 
   useEffect(() => {

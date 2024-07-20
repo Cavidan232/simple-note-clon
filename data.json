@@ -48,6 +48,15 @@
       "fav": [],
       "delete": [],
       "notes": []
+    },
+    {
+      "id": "656a",
+      "name": "cv",
+      "email": "asmar2@gmail.com",
+      "password": "123",
+      "fav": [],
+      "delete": [],
+      "notes": []
     }
   ]
 }
