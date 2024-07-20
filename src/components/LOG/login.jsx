@@ -17,7 +17,7 @@ function Login() {
     userLogin();
   };
 
-  const api = "http://localhost:3000/user";
+  const api = "https://irradiated-silicon-antler.glitch.me/user";
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

@@ -31,3 +31,25 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.75);
 }
+
+
+.react-quill-container {
+  max-height: 400px; /* İhtiyaca göre ayarlayın */
+  overflow-y: auto; /* Dikey kaydırma ekler */
+  word-wrap: break-word; /* Uzun kelimeleri satıra sarmaya zorlar */
+}
+
+.note-content {
+  max-height: 100px; /* Not içerikleri için uygun yükseklik */
+  overflow: hidden; /* Taşan içerikleri gizler */
+  text-overflow: ellipsis; /* Taşan metinler için "..." gösterir */
+  word-wrap: break-word; /* Uzun kelimeleri satıra sarmaya zorlar */
+}
+
+.text-ellipsis {
+  max-height: 100px; /* Not içerikleri için uygun yükseklik */
+  overflow: hidden; /* Taşan içerikleri gizler */
+  text-overflow: ellipsis; /* Taşan metinler için "..." gösterir */
+  word-wrap: break-word; /* Uzun kelimeleri satıra sarmaya zorlar */
+}
+
