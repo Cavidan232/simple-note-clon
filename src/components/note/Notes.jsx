@@ -8,7 +8,7 @@ import ReactQuill from 'react-quill';
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import NoteModal from './Note'; // Modal bileşenini import et
+import NoteModal from './NoteModal'; // Modal bileşenini import et
 
 function Notes() {
   const api = "https://irradiated-silicon-antler.glitch.me/user";
@@ -34,7 +34,7 @@ function Notes() {
   const addNote = () => {
     if (note.trim()) {
       const newNote = { id: Date.now(), content: note };
-      const updatedNotes = [...notes, newNote];
+      const updatedNotes = [newNote, ...notes]; // Son eklenen en üstte
       setNotes(updatedNotes);
       axios.patch(`${api}/${user.id}`, { notes: updatedNotes })
         .then(() => toast.success('Note added successfully!'))
@@ -78,7 +78,7 @@ function Notes() {
   const restoreNote = (id) => {
     const noteToRestore = deleteNotes.find(note => note.id === id);
     const updatedDeleteNotes = deleteNotes.filter(note => note.id !== id);
-    const updatedNotes = [...notes, noteToRestore];
+    const updatedNotes = [noteToRestore, ...notes];
     setNotes(updatedNotes);
     setDelete(updatedDeleteNotes);
     axios.patch(`${api}/${user.id}`, { notes: updatedNotes, delete: updatedDeleteNotes })
@@ -114,7 +114,7 @@ function Notes() {
   };
 
   return (
-    <div className="container flex flex-col md:flex-row p-6 bg-gray-100 min-h-screen">
+    <div className="flex flex-col md:flex-row p-6 bg-gray-100 min-h-screen">
       <ToastContainer />
       <NoteModal
         isOpen={isModalOpen}
@@ -122,24 +122,8 @@ function Notes() {
         note={selectedNote}
         onSave={handleSaveNote}
       />
-      <div className="left w-full md:w-1/3 border-r border-gray-300 p-4">
-        <h2 className="text-2xl font-semibold mb-4">Notes</h2>
-        <div className="mb-4 flex flex-col items-center">
-          <ReactQuill
-            value={note}
-            onChange={(value) => setNote(value)}
-            placeholder="Add a new note..."
-            className="react-quill-container flex-1 mb-2 text-black w-full"
-            modules={{ toolbar: true }}
-          />
-          <button
-            onClick={addNote}
-            className="bg-blue-500 text-white p-2 rounded-md flex items-center"
-          >
-            <AiOutlinePlus className="mr-1" />
-            Add Note
-          </button>
-        </div>
+      <div className="left w-full md:w-1/4 order-2 border-r border-gray-300 p-4">
+     
         <div className="flex gap-4 mb-4">
           <button onClick={() => handleViewChange('all')} className="bg-blue-500 text-white p-2 rounded-md">All Notes</button>
           <button onClick={() => handleViewChange('fav')} className="bg-yellow-500 text-white p-2 rounded-md">Favorites</button>
@@ -150,12 +134,13 @@ function Notes() {
             <p>No notes available.</p>
           ) : (
             filteredNotes.map((note) => (
-              <div key={note.id} className="note-item text-gray-950 mb-4 p-4 bg-white shadow-md rounded-md">
+              <div key={note.id} className="note-item mb-4 p-4 bg-white shadow-md rounded-md border border-gray-200">
                 <ReactQuill
                   value={note.content}
                   readOnly
                   theme="bubble"
                   className="mb-2"
+                  style={{ backgroundColor: '#f4f4f4', color: '#333' }}
                 />
                 <div className="flex justify-between items-center">
                   <button onClick={() => handleEditClick(note)} className="text-blue-500">
@@ -192,6 +177,26 @@ function Notes() {
               </div>
             ))
           )}
+        </div>
+      </div>
+      <div className="right w-full md:w-3/4 p-4">
+      <h2 className="text-2xl font-semibold mb-4">Notes</h2>
+        <div className="mb-4 order-1 flex flex-col items-center">
+          <ReactQuill
+            value={note}
+            onChange={(value) => setNote(value)}
+            placeholder="Add a new note..."
+            className="react-quill-container flex-1 mb-2 text-black w-full bg-gray-100"
+            modules={{ toolbar: true }}
+            style={{ backgroundColor: '#f9f9f9', border: '1px solid #ddd' }}
+          />
+          <button
+            onClick={addNote}
+            className="bg-blue-500 text-white p-2 rounded-md flex items-center"
+          >
+            <AiOutlinePlus className="mr-1" />
+            Add Note
+          </button>
         </div>
       </div>
     </div>
