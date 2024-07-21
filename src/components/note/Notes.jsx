@@ -7,27 +7,29 @@ import axios from 'axios';
 import ReactQuill from 'react-quill';
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
+import NoteModal from './Note'; // Modal bileşenini import et
 
 function Notes() {
-  const api = "https://irradiated-silicon-antler.glitch.me/user"
+  const api = "https://irradiated-silicon-antler.glitch.me/user";
   const [user, setUser] = useState(localStorage.getItem('currentUser2') ? JSON.parse(localStorage.getItem('currentUser2')) : null);
   const [notes, setNotes] = useState(user ? user.notes : []);
   const [deleteNotes, setDelete] = useState(user ? user.delete : []);
   const [favNotes, setFav] = useState(user ? user.fav : []);
   const [note, setNote] = useState('');
   const [view, setView] = useState('all');
+  const [selectedNote, setSelectedNote] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  if (!user) {
-    navigate('/login'); 
-  }
 
   useEffect(() => {
-    if (user) {
+    if (!user) {
+      navigate('/login');
+    } else {
       const updatedUser = { ...user, notes, delete: deleteNotes, fav: favNotes };
       localStorage.setItem('currentUser2', JSON.stringify(updatedUser));
     }
-  }, [notes, deleteNotes, favNotes, user]);
+  }, [notes, deleteNotes, favNotes, user, navigate]);
 
   const addNote = () => {
     if (note.trim()) {
@@ -35,12 +37,8 @@ function Notes() {
       const updatedNotes = [...notes, newNote];
       setNotes(updatedNotes);
       axios.patch(`${api}/${user.id}`, { notes: updatedNotes })
-        .then(response => {
-          toast.success('Note added successfully!');
-        })
-        .catch(error => {
-          toast.error('There was an error adding the note.');
-        });
+        .then(() => toast.success('Note added successfully!'))
+        .catch(() => toast.error('There was an error adding the note.'));
       setNote('');
     }
   };
@@ -52,12 +50,8 @@ function Notes() {
     setNotes(updatedNotes);
     setDelete(updatedDeleteNotes);
     axios.patch(`${api}/${user.id}`, { notes: updatedNotes, delete: updatedDeleteNotes })
-      .then(response => {
-        toast.success('Note moved to deleted notes.');
-      })
-      .catch(error => {
-        toast.error('There was an error deleting the note.');
-      });
+      .then(() => toast.success('Note moved to deleted notes.'))
+      .catch(() => toast.error('There was an error deleting the note.'));
   };
 
   const addFav = (id) => {
@@ -66,12 +60,8 @@ function Notes() {
       const updatedFavNotes = [...favNotes, favNote];
       setFav(updatedFavNotes);
       axios.patch(`${api}/${user.id}`, { fav: updatedFavNotes })
-        .then(response => {
-          toast.success("Note added to Favorites");
-        })
-        .catch(error => {
-          toast.error("Error occurred while adding to Favorites");
-        });
+        .then(() => toast.success("Note added to Favorites"))
+        .catch(() => toast.error("Error occurred while adding to Favorites"));
     } else {
       toast.info("Note is already in Favorites");
     }
@@ -81,41 +71,28 @@ function Notes() {
     const updatedFavNotes = favNotes.filter(note => note.id !== id);
     setFav(updatedFavNotes);
     axios.patch(`${api}/${user.id}`, { fav: updatedFavNotes })
-      .then(response => {
-        toast.success('Note removed from Favorites.');
-      })
-      .catch(error => {
-        toast.error('There was an error removing the note from Favorites.');
-      });
+      .then(() => toast.success('Note removed from Favorites.'))
+      .catch(() => toast.error('There was an error removing the note from Favorites.'));
   };
 
-  const berpaNote = (id) => {
-    const noteToUpdate = deleteNotes.find(note => note.id === id);
+  const restoreNote = (id) => {
+    const noteToRestore = deleteNotes.find(note => note.id === id);
     const updatedDeleteNotes = deleteNotes.filter(note => note.id !== id);
-    const updatedNotes = [...notes, noteToUpdate];
+    const updatedNotes = [...notes, noteToRestore];
     setNotes(updatedNotes);
     setDelete(updatedDeleteNotes);
     axios.patch(`${api}/${user.id}`, { notes: updatedNotes, delete: updatedDeleteNotes })
-      .then(response => {
-        toast.success('Note restored successfully.');
-      })
-      .catch(error => {
-        toast.error('There was an error restoring the note.');
-      });
+      .then(() => toast.success('Note restored successfully.'))
+      .catch(() => toast.error('There was an error restoring the note.'));
   };
 
-  const deleteNotes2 = (id) => {
+  const deletePermanently = (id) => {
     const updatedDeleteNotes = deleteNotes.filter(note => note.id !== id);
     setDelete(updatedDeleteNotes);
     axios.patch(`${api}/${user.id}`, { delete: updatedDeleteNotes })
-      .then(response => {
-        toast.success('Note permanently deleted.');
-      })
-      .catch(error => {
-        toast.error('There was an error permanently deleting the note.');
-      });
+      .then(() => toast.success('Note permanently deleted.'))
+      .catch(() => toast.error('There was an error permanently deleting the note.'));
   };
-
 
   const handleViewChange = (viewType) => {
     setView(viewType);
@@ -123,9 +100,28 @@ function Notes() {
 
   const filteredNotes = view === 'all' ? notes : view === 'fav' ? favNotes : deleteNotes;
 
+  const handleEditClick = (note) => {
+    setSelectedNote(note);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveNote = (content) => {
+    const updatedNotes = notes.map(n => n.id === selectedNote.id ? { ...n, content } : n);
+    setNotes(updatedNotes);
+    axios.patch(`${api}/${user.id}`, { notes: updatedNotes })
+      .then(() => toast.success('Note updated successfully!'))
+      .catch(() => toast.error('There was an error updating the note.'));
+  };
+
   return (
-    <div className="container flex flex-col md:flex-row p-6 bg-custom-dark min-h-screen">
+    <div className="container flex flex-col md:flex-row p-6 bg-gray-100 min-h-screen">
       <ToastContainer />
+      <NoteModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        note={selectedNote}
+        onSave={handleSaveNote}
+      />
       <div className="left w-full md:w-1/3 border-r border-gray-300 p-4">
         <h2 className="text-2xl font-semibold mb-4">Notes</h2>
         <div className="mb-4 flex flex-col items-center">
@@ -133,7 +129,7 @@ function Notes() {
             value={note}
             onChange={(value) => setNote(value)}
             placeholder="Add a new note..."
-            className="react-quill-container flex-1 mb-2 text-white w-full"
+            className="react-quill-container flex-1 mb-2 text-black w-full"
             modules={{ toolbar: true }}
           />
           <button
@@ -144,80 +140,58 @@ function Notes() {
             Add Note
           </button>
         </div>
-        <div className="mb-4 flex justify-around">
-          <button
-            onClick={() => handleViewChange('all')}
-            className={`p-2 ${view === 'all' ? 'bg-blue-500' : 'bg-gray-700'} text-white rounded-md`}
-          >
-            All Notes
-          </button>
-          <button
-            onClick={() => handleViewChange('fav')}
-            className={`p-2 ${view === 'fav' ? 'bg-blue-500' : 'bg-gray-700'} text-white rounded-md`}
-          >
-            Favorite Notes
-          </button>
-          <button
-            onClick={() => handleViewChange('deleted')}
-            className={`p-2 ${view === 'deleted' ? 'bg-blue-500' : 'bg-gray-700'} text-white rounded-md`}
-          >
-            Deleted Notes
-          </button>
+        <div className="flex gap-4 mb-4">
+          <button onClick={() => handleViewChange('all')} className="bg-blue-500 text-white p-2 rounded-md">All Notes</button>
+          <button onClick={() => handleViewChange('fav')} className="bg-yellow-500 text-white p-2 rounded-md">Favorites</button>
+          <button onClick={() => handleViewChange('delete')} className="bg-red-500 text-white p-2 rounded-md">Deleted Notes</button>
         </div>
-        <ul className="list-none p-0">
-          {filteredNotes.map(note => (
-            <li key={note.id} className="p-2 mb-2 bg-gray-800 flex justify-between text-white rounded-md">
-              <div className="note-content" dangerouslySetInnerHTML={{ __html: note.content }} />
-              <div className='flex gap-3'>
-                {view === 'all' && (
-                  <>
-                    <button onClick={() => deleteNote(note.id)} >
-                      <FaTrash />
-                    </button>
-                    <button onClick={() => addFav(note.id)} >
-                      <FaHeart />
-                    </button>
-                  </>
-                )}
-                {view === 'fav' && (
-                  <button onClick={() => removeFav(note.id)} >
-                    <FaTrash />
+        <div className="notes-list">
+          {filteredNotes.length === 0 ? (
+            <p>No notes available.</p>
+          ) : (
+            filteredNotes.map((note) => (
+              <div key={note.id} className="note-item text-gray-950 mb-4 p-4 bg-white shadow-md rounded-md">
+                <ReactQuill
+                  value={note.content}
+                  readOnly
+                  theme="bubble"
+                  className="mb-2"
+                />
+                <div className="flex justify-between items-center">
+                  <button onClick={() => handleEditClick(note)} className="text-blue-500">
+                    <AiOutlineEdit />
                   </button>
-                )}
-                {view === 'deleted' && (
-                  <>
-                    <button onClick={() => deleteNotes2(note.id)} >
-                      <FaTrash />
-                    </button>
-                    <button onClick={() => berpaNote(note.id)} >
-                      <GrUpdate />
-                    </button>
-                  </>
-                )}
+                  {view === 'delete' ? (
+                    <>
+                      <button onClick={() => restoreNote(note.id)} className="text-green-500">
+                        <GrUpdate />
+                      </button>
+                      <button onClick={() => deletePermanently(note.id)} className="text-red-500">
+                        <FaTrash />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {view === 'fav' ? (
+                        <button onClick={() => removeFav(note.id)} className="text-red-500">
+                          <FaHeart />
+                        </button>
+                      ) : (
+                        <>
+                          <button onClick={() => addFav(note.id)} className="text-yellow-500">
+                            <FaHeart />
+                          </button>
+                          <button onClick={() => deleteNote(note.id)} className="text-red-500">
+                            <FaTrash />
+                          </button>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="right w-full md:w-2/3 p-4">
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Note Details</h2>
-          <ReactQuill
-            value={note}
-            onChange={(value) => setNote(value)}
-            className="react-quill-container w-full mb-4"
-            modules={{ toolbar: true }}
-          />
-          <div className="flex mt-4">
-            <button className="bg-green-500 text-white p-2 rounded-md mr-2 flex items-center">
-              <AiOutlineEdit className="mr-1" />
-              Edit
-            </button>
-            <button className="bg-red-500 text-white p-2 rounded-md flex items-center">
-              <AiOutlineDelete className="mr-1" />
-              Delete
-            </button>
-          </div>
+            ))
+          )}
         </div>
       </div>
     </div>

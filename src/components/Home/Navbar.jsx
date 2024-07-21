@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import logo from "../../assets/logo.png";
 import icMenu from "../../assets/ic_menu.png";
 import icCross from "../../assets/ic_cross.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(localStorage.getItem('currentUser2') ? JSON.parse(localStorage.getItem('currentUser2')) : null);
-
+const navigate=useNavigate()
   const handleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
@@ -15,7 +15,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('currentUser2'); 
     setUser(null);
-    window.location.href = '/login';
+    navigate("/login")
   };
 
   return (
