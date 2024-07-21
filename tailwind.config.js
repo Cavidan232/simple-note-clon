@@ -9,7 +9,7 @@ export default {
       colors:{
         "custom-dark":"#1f2123",
         "custom-blue":"#3361cc",
-        "custom-light":"#d5dff5",
+        "custom-light":"#fff",
         "custom-dark-2":"#323436"
       },
       fontFamily: {

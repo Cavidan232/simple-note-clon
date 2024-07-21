@@ -7,7 +7,7 @@ import Saying from "../components/Home/Saying"
 import Download from "../components/Home/Download"
 function Home() {
   return (
-    <div className='bg-custom-dark'>
+    <div className='bg-custom-light'>
       <Navbar/>
       <Banner/>
       <Simple/>

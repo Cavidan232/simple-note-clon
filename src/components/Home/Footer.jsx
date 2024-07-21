@@ -13,7 +13,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-custom-dark text-white py-4 md:py-6">
+    <footer className="bg-custom-light text-gray-950 py-4 md:py-6">
       <div className="container mx-auto px-4 flex flex-col items-center md:flex-row justify-between">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
           {links.map((link) => (

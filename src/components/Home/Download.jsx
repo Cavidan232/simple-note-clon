@@ -15,7 +15,7 @@ function Download() {
   ];
 
   return (
-    <div className="bg-custom-dark text-white px-4 py-8 md:px-8 md:py-12">
+    <div className="bg-custom-light text-black px-4 py-8 md:px-8 md:py-12">
       <div className="container  simple w-full flex flex-col gap-[30px] items-center justify-center">
         <h1 className="text-5xl md:w-[80%] md:text-center w-full font-bold mb-8 text-center">
         Available on all your devices
@@ -25,13 +25,13 @@ function Download() {
         </p>
         <div className="cards grid grid-cols-1 md:grid-cols-2 pb-[20px] w-full  md:w-[60%] gap-[20px]">
           {cards.map((card, index) => (
-            <div key={index} className='flex items-center  bg-custom-dark-2 rounded-[6px] p-2 shadow-lg border  border-gray-50 gap-[10px]'>
+            <div key={index} className='flex items-center  bg-custom-light-2 rounded-[6px] p-2 shadow-lg border  border-black gap-[10px]'>
               <div className='flex items-center justify-start gap-[10px]'>
                 <img src={card.image}className='w-[30px]'  alt={card.title} />   
               </div>
               <div className="text">   
              <span className='font-bold text-[16px]'>{card.description}</span>
-              <p className='text-gray-400'>{card.title}</p>
+              <p className='text-gray-950'>{card.title}</p>
               </div>
          
             </div>

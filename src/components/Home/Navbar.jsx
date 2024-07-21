@@ -13,7 +13,7 @@ const Navbar = () => {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('currentUser2'); // Corrected localStorage key
+    localStorage.removeItem('currentUser2'); 
     setUser(null);
     window.location.href = '/login';
   };
@@ -23,19 +23,19 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center px-8">
         <div className="flex items-center">
           <img src={logo} alt="logo" className="h-8 w-8 mr-2" />
-          <a className="text-xl text-custom-light font-bold" href='/'>Simplenote</a>
+          <a className="text-xl text-custom-dark font-bold" href='/'>Simplenote</a>
         </div>
         <div className="hidden md:flex space-x-4">
-          <Link className="text-custom-light hover:text-white" to="/contact">Contact Us</Link>
-          <Link className="text-custom-light hover:text-white" to="/help">Help</Link>
-          <Link className="text-custom-light hover:text-white" to="/blog">Blog</Link>
-          <Link className="text-custom-light hover:text-white" to="/support">Support Form</Link>
+          <Link className="text-custom-dark hover:text-black" to="/contact">Contact Us</Link>
+          <Link className="text-custom-dark hover:text-black" to="/help">Help</Link>
+          <Link className="text-custom-dark hover:text-black" to="/blog">Blog</Link>
+          <Link className="text-custom-dark hover:text-black" to="/support">Support Form</Link>
           <div className="border-l border-gray-300 h-6"></div>
           {user ? (
             <>
-              <Link className="text-custom-light hover:text-white" to="/profile">{user.name}</Link>
+              <Link className="text-custom-dark hover:text-black" to="/profile">{user.name}</Link>
               <button
-                className="text-custom-light hover:text-white border border-gray-500 rounded px-2 py-1 mt-[-4px]"
+                className="text-custom-dark hover:text-black border border-gray-500 rounded px-2 py-1 mt-[-4px]"
                 onClick={handleLogout}
               >
                 Log Out
@@ -43,11 +43,11 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link className="text-custom-light hover:text-white" to="/login">Login</Link>
-              <Link className="text-custom-light hover:text-white border border-gray-500 rounded px-2 py-1 mt-[-4px]" to="/register">Register</Link>
+              <Link className="text-custom-dark hover:text-black" to="/login">Login</Link>
+              <Link className="text-custom-dark hover:text-black border border-gray-500 rounded px-2 py-1 mt-[-4px]" to="/register">Register</Link>
             </>
           )}
-         <Link className="text-custom-light hover:text-white" to="/notes" onClick={handleMenu}>Notes</Link>
+         <Link className="text-custom-dark hover:text-black" to="/notes" onClick={handleMenu}>Notes</Link>
         </div>
         <div className="md:hidden">
           <button onClick={handleMenu}>
@@ -56,20 +56,20 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={`absolute top-16 right-0 z-20 w-[50%] bg-custom-dark transition-all duration-300 ease-in-out ${
+        className={`absolute top-16 right-0 z-20 w-[50%] bg-custom-light transition-all duration-300 ease-in-out ${
           isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         } overflow-hidden md:hidden flex flex-col items-center space-y-4 py-4`}
       >
-        <Link className="text-custom-light hover:text-white" to="/contact" onClick={handleMenu}>Contact Us</Link>
-        <Link className="text-custom-light hover:text-white" to="/help" onClick={handleMenu}>Help</Link>
-        <Link className="text-custom-light hover:text-white" to="/blog" onClick={handleMenu}>Blog</Link>
-        <Link className="text-custom-light hover:text-white" to="/support" onClick={handleMenu}>Support Form</Link>
+        <Link className="text-custom-dark hover:text-black" to="/contact" onClick={handleMenu}>Contact Us</Link>
+        <Link className="text-custom-dark hover:text-black" to="/help" onClick={handleMenu}>Help</Link>
+        <Link className="text-custom-dark hover:text-black" to="/blog" onClick={handleMenu}>Blog</Link>
+        <Link className="text-custom-dark hover:text-black" to="/support" onClick={handleMenu}>Support Form</Link>
         <div className="border-t border-gray-300 w-full"></div>
         {user ? (
           <>
-            <Link className="text-custom-light hover:text-white" to="/profile" onClick={handleMenu}>{user.name}</Link>
+            <Link className="text-custom-dark hover:text-black" to="/profile" onClick={handleMenu}>{user.name}</Link>
             <button
-              className="text-custom-light hover:text-white border border-gray-500 rounded px-2 py-1 mt-[-4px]"
+              className="text-custom-dark hover:text-black border border-gray-500 rounded px-2 py-1 mt-[-4px]"
               onClick={() => {
                 handleLogout();
                 handleMenu();
@@ -80,11 +80,11 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link className="text-custom-light hover:text-white" to="/login" onClick={handleMenu}>Login</Link>
-            <Link className="text-custom-light hover:text-white border border-gray-500 rounded px-2 py-1 mt-[-4px]" to="/register" onClick={handleMenu}>Register</Link>
+            <Link className="text-custom-dark hover:text-black" to="/login" onClick={handleMenu}>Login</Link>
+            <Link className="text-custom-dark hover:text-black border border-gray-500 rounded px-2 py-1 mt-[-4px]" to="/register" onClick={handleMenu}>Register</Link>
           </>
         )}
-        <Link className="text-custom-light hover:text-white" to="/notes" onClick={handleMenu}>Notes</Link>
+        <Link className="text-custom-dark hover:text-black" to="/notes" onClick={handleMenu}>Notes</Link>
       </div>
     </header>
   );

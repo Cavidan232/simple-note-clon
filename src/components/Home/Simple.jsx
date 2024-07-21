@@ -16,7 +16,7 @@ function Simple() {
   ];
 
   return (
-    <div className="bg-custom-dark text-white px-4 py-8 md:px-8 md:py-12">
+    <div className="bg-custom-light text-custom-dark px-4 py-8 md:px-8 md:py-12">
       <div className="container border-b border-b-gray-500  simple w-full flex flex-col gap-[30px] items-center justify-center">
         <h1 className="text-4xl md:w-[80%] md:text-center w-full font-bold mb-8 text-center">
           Comprehensive underneath, simple on the surface
@@ -28,7 +28,7 @@ function Simple() {
                 <img src={card.image}className='w-[30px]'  alt={card.title} />
                 <span className='font-bold text-[16px]'>{card.title}</span>
               </div>
-              <p className='text-gray-400 w-full md:w-[80%]'>{card.description}</p>
+              <p className='text-black w-full md:w-[80%]'>{card.description}</p>
             </div>
           ))}
         </div>

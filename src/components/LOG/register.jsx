@@ -69,7 +69,7 @@ const api = "https://irradiated-silicon-antler.glitch.me/user"
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-custom-dark text-white">
+    <div className="min-h-screen flex items-center justify-center bg-custom-light text-gray-950">
       <ToastContainer />
       <div className="p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="text-center mb-6">
@@ -84,7 +84,7 @@ const api = "https://irradiated-silicon-antler.glitch.me/user"
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full p-2 rounded bg-custom-dark text-white border border-gray-500"
+              className="w-full p-2 rounded bg-custom-light text-gray-950 border border-gray-500"
               required
             />
           </div>
@@ -95,7 +95,7 @@ const api = "https://irradiated-silicon-antler.glitch.me/user"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full p-2 rounded bg-custom-dark text-white border border-gray-500"
+              className="w-full p-2 rounded bg-custom-light text-gray-950 border border-gray-500"
               required
             />
           </div>
@@ -106,11 +106,11 @@ const api = "https://irradiated-silicon-antler.glitch.me/user"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="w-full p-2 rounded bg-custom-dark text-white border border-gray-500"
+              className="w-full p-2 rounded bg-custom-light text-gray-950 border border-gray-500"
               required
             />
           </div>
-          <button type="submit" className="w-full bg-blue-600 p-2 rounded text-lg hover:bg-blue-700">
+          <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded text-lg hover:bg-blue-700">
             Sign Up
           </button>
         </form>
