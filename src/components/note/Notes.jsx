@@ -8,7 +8,7 @@ import ReactQuill from 'react-quill';
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import NoteModal from './NoteModal'; // Modal bileşenini import et
+import NoteModal from './NoteModal';
 
 function Notes() {
   const api = "https://irradiated-silicon-antler.glitch.me/user";
