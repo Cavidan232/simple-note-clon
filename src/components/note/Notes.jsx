@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import NoteModal from './NoteModal';
 
 function Notes() {
-  const api = "https://irradiated-silicon-antler.glitch.me/user";
+  const api = "https://agate-fishy-catsup.glitch.me/acounts";
   const [user, setUser] = useState(localStorage.getItem('currentUser2') ? JSON.parse(localStorage.getItem('currentUser2')) : null);
   const [notes, setNotes] = useState(user ? user.notes : []);
   const [deleteNotes, setDelete] = useState(user ? user.delete : []);

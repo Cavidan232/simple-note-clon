@@ -21,7 +21,7 @@ function Register() {
       [name]: value
     });
   };
-const api = "https://irradiated-silicon-antler.glitch.me/user"
+const api = "https://agate-fishy-catsup.glitch.me/acounts"
 
   const handleRegister = (e) => {
     e.preventDefault();

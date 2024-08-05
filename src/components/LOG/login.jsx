@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ function Login() {
     userLogin();
   };
 
- const api = "https://irradiated-silicon-antler.glitch.me/user"
+ const api = "https://agate-fishy-catsup.glitch.me/acounts"
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +29,20 @@ function Login() {
       [name]: value
     });
   };
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(api);
+        const data = response.data;
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
   const userLogin = async () => {
 
       const response = await axios.get(api);

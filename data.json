@@ -5,31 +5,9 @@
       "name": "Cavidan",
       "email": "cavidanVelizade9@gmail.com",
       "password": "12",
-      "fav": [
-        {
-          "id": 1721503247532,
-          "content": "<p>wwwerq</p>"
-        }
-      ],
+      "fav": [],
       "delete": [],
-      "notes": [
-        {
-          "id": 1721503244204,
-          "content": "<p>wdqqwfe</p>"
-        },
-        {
-          "id": 1721503247532,
-          "content": "<p>wwwerq</p>"
-        },
-        {
-          "id": 1721501117525,
-          "content": "<p>gfsrg4wt</p>"
-        },
-        {
-          "id": 1721501545401,
-          "content": "<p>ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssweeeeeeeeeesssssssssssssssss</p>"
-        }
-      ]
+      "notes": []
     },
     {
       "id": "c694",
