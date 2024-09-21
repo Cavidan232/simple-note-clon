@@ -23,7 +23,7 @@ const navigate=useNavigate()
       <div className="container mx-auto flex justify-between items-center px-8">
         <div className="flex items-center">
           <img src={logo} alt="logo" className="h-8 w-8 mr-2" />
-          <a className="text-xl text-custom-dark font-bold" href='/'>Simplenote</a>
+          <a className="text-xl text-custom-dark font-bold" href='/'>CavidanNote</a>
         </div>
         <div className="hidden md:flex space-x-4">
           <Link className="text-custom-dark hover:text-black" to="/contact">Contact Us</Link>

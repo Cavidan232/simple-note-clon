@@ -180,7 +180,7 @@ function Notes() {
         </div>
       </div>
       <div className="right w-full md:w-3/4 p-4">
-      <h2 className="text-2xl font-semibold mb-4">Notes</h2>
+      <h2 className="text-2xl text-black font-semibold mb-4">Notes</h2>
         <div className="mb-4 order-1 flex flex-col items-center">
           <ReactQuill
             value={note}
